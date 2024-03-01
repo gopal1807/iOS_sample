@@ -1,0 +1,100 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+  desc "Update Version and Build number"
+  lane :update_version do
+    increment_version_number(version_number: "1.10.6")
+    increment_build_number(build_number: "1")
+  end
+
+  desc "Create ipa"
+  lane :build  do |values|
+    scheme = values[:scheme]
+    bundle_id = get_product_bundle_id(project_filepath: 'FunnyCow.xcodeproj', scheme: scheme)
+    match(
+      app_identifier: [bundle_id],
+      # force: true
+    )
+ 
+    update_project_provisioning(
+      profile: ENV["sigh_#{bundle_id}_appstore_profile-path"],
+      code_signing_identity: 'Apple Distribution',
+      # target_filter: targetName,
+    )
+    ENV["FASTLANE_XCODEBUILD_SETTINGS_RETRIES"] = "6"
+    
+    build_app(
+      workspace: "FunnyCow.xcworkspace",
+      scheme: scheme, 
+      include_bitcode: true,
+      silent: true,
+    )
+  end
+
+  desc "Upload to App TestFlight"
+  lane :upload  do |values|
+    scheme = values[:scheme]
+    bundle_id = get_product_bundle_id(project_filepath: 'FunnyCow.xcodeproj', scheme: scheme)
+    puts "bundle id is---- #{bundle_id}"
+    deliver(
+      app_identifier: bundle_id,
+      skip_screenshots: true,
+      force: true,
+      automatic_release: true,
+      submit_for_review: true,
+      # skip_binary_upload: true,
+      precheck_include_in_app_purchases: false,
+      run_precheck_before_submit: false,
+      submission_information: { 
+          export_compliance_uses_encryption: false,
+          add_id_info_uses_idfa: false 
+        }
+      )
+      clean_build_artifacts
+  end
+
+  desc "Create app ipa and upload to TestFlight"
+  lane :build_upload do |values|
+    scheme = values[:scheme]
+    clean_build_artifacts
+    update_code_signing_settings(
+      use_automatic_signing: false
+    )
+    if scheme != nil
+      build(scheme: scheme)
+      upload(scheme: scheme)
+    else
+      schemeList = [
+        "AERobinson",
+        "AjiBayShore",
+        "Andersons",
+        "AngiesFood",
+        "Antoninos"]
+      schemeList.each do |name|
+        build(scheme: name)
+        upload(scheme: name)
+      end
+    end
+  end
+
+  after_all do |lane, options|
+    notification(subtitle: "Finished all", message: "-#{lane}--#{options}---")
+  end
+  
+  after_each do |lane, options|
+    notification(subtitle: "Finished #{lane}", message: "----#{options}--")
+  end

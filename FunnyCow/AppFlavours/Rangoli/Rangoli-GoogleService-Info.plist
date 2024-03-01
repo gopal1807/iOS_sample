@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>917240770336-h30a950696d758jqj7v513l1546denu6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.917240770336-h30a950696d758jqj7v513l1546denu6</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>917240770336-151m6beqloa13ldg4jamu521ighgpvit.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD2y3qr9Qn0oiQ8oBW4Ai_Rx0ZM8O7Z31I</string>
+	<key>GCM_SENDER_ID</key>
+	<string>917240770336</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.rangolli</string>
+	<key>PROJECT_ID</key>
+	<string>bellymellyuser</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bellymellyuser.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:917240770336:ios:7a0a1927e537632c01f145</string>
+	<key>DATABASE_URL</key>
+	<string>https://bellymellyuser.firebaseio.com</string>
+</dict>
+</plist>

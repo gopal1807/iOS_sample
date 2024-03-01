@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "order_confirm.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
